@@ -1,7 +1,10 @@
 language: scala
-scala:
-   - 2.11.8
-   - 2.12.1
+
+matrix:
+  - scala: 2.11.8
+    env: JDK=oraclejdk7
+  - scala: 2.12.1
+    env: JDK=oraclejdk8
 
 before_install:
   - |
