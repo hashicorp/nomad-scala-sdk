@@ -1,4 +1,4 @@
-Nomad Scala SDK
+Nomad Scala SDK [![Build Status](https://travis-ci.org/hashicorp/nomad-scala-sdk.svg?branch=master)](https://travis-ci.org/hashicorp/nomad-scala-sdk)
 ===============
 
 <!-- TODO once published to maven: add version badge -->
