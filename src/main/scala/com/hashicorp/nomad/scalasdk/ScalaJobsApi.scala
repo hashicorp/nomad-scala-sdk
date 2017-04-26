@@ -37,7 +37,6 @@ class ScalaJobsApi(jobsApi: JobsApi) {
   def deregister(jobId: String, options: Option[WriteOptions] = None): EvaluationResponse =
     jobsApi.deregister(jobId, options.orNull)
 
-  // TODO no prefix for these evaluations?
   /** Lists the evaluations belonging to a job in the active region.
     *
     * @param jobId   the ID of the job to list evaluations for
