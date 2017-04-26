@@ -20,7 +20,7 @@ scalaVersion := crossScalaVersions.value.head
 resolvers += Resolver.mavenLocal
 
 val nomadJavaSdkVersion = SettingKey[String]("nomadJavaSdkVersion", "The version of the Java nomad-sdk dependency.")
-nomadJavaSdkVersion := "0.0.2"
+nomadJavaSdkVersion := "0.0.3"
 
 libraryDependencies += "com.hashicorp.nomad" % "nomad-sdk" % nomadJavaSdkVersion.value
 

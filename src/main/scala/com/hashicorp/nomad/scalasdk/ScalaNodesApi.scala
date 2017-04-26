@@ -64,7 +64,8 @@ class ScalaNodesApi(nodesApi: NodesApi) {
     * @param options options controlling how the request is performed
     * @see [[https://www.nomadproject.io/docs/http/node.html#put-post `PUT /v1/node/{ID}/drain`]]
     */
-  def toggleDrain(nodeId: String, enabled: Boolean, options: Option[WriteOptions] = None): EvaluationResponse =
+  def toggleDrain(nodeId: String, enabled: Boolean, options: Option[WriteOptions] = None): ServerResponse[Unit] =
     nodesApi.toggleDrain(nodeId, enabled, options.orNull)
+      .map(_ => ())
 
 }
