@@ -15,6 +15,6 @@ resolvers += Resolver.mavenLocal
 libraryDependencies += "com.hashicorp.nomad" % "nomad-sdk" % version.value
 
 libraryDependencies += "com.hashicorp.nomad" % "nomad-testkit" % version.value % Test
-libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.1"
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.1" % Test
 
 publishMavenStyle := true
