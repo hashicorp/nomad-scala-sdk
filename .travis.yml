@@ -5,14 +5,20 @@ jdk:
   - oraclejdk8
 
 scala:
-   - 2.11.8
-   - 2.12.1
+   - 2.11.11
+   - 2.12.2
+   - 2.13.0-M1
 
 matrix:
   exclude:
+  # We build Scala 2.11 on Java 7, so let's not bother with Java 8
+  - jdk: oraclejdk8
+    scala: 2.11.11
   # Scala 2.12+ requires Java 8
   - jdk: oraclejdk7
-    scala: 2.12.1
+    scala: 2.12.2
+  - jdk: oraclejdk7
+    scala: 2.13.0-M1
 
 before_install:
   - |
