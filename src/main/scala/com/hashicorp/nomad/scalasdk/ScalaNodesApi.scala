@@ -2,8 +2,8 @@ package com.hashicorp.nomad.scalasdk
 
 import scala.collection.JavaConverters._
 
-import com.hashicorp.nomad.apimodel.{AllocationListStub, Node, NodeListStub}
-import com.hashicorp.nomad.javasdk.{NodesApi, ServerQueryResponse, ServerResponse, WriteOptions}
+import com.hashicorp.nomad.apimodel.{ AllocationListStub, Node, NodeListStub }
+import com.hashicorp.nomad.javasdk._
 
 /** API for querying for information about client nodes,
   * exposing the functionality of the `/v1/nodes` and `/v1/node` endpoints of the
@@ -64,8 +64,7 @@ class ScalaNodesApi(nodesApi: NodesApi) {
     * @param options options controlling how the request is performed
     * @see [[https://www.nomadproject.io/docs/http/node.html#put-post `PUT /v1/node/{ID}/drain`]]
     */
-  def toggleDrain(nodeId: String, enabled: Boolean, options: Option[WriteOptions] = None): ServerResponse[Unit] =
+  def toggleDrain(nodeId: String, enabled: Boolean, options: Option[WriteOptions] = None): EvaluationResponse =
     nodesApi.toggleDrain(nodeId, enabled, options.orNull)
-      .map((_: Void) => ())
 
 }

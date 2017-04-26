@@ -1,3 +1,5 @@
+import sbt.KeyRanks.APlusSetting
+
 organization := "com.hashicorp.nomad"
 organizationName := "Hashicorp"
 organizationHomepage := Some(url("https://www.hashicorp.com/"))
@@ -17,9 +19,12 @@ scalaVersion := crossScalaVersions.value.head
 
 resolvers += Resolver.mavenLocal
 
-libraryDependencies += "com.hashicorp.nomad" % "nomad-sdk" % version.value
+val nomadJavaSdkVersion = SettingKey[String]("nomadJavaSdkVersion", "The version of the Java nomad-sdk dependency.")
+nomadJavaSdkVersion := "0.0.2"
 
-libraryDependencies += "com.hashicorp.nomad" % "nomad-testkit" % version.value % Test
+libraryDependencies += "com.hashicorp.nomad" % "nomad-sdk" % nomadJavaSdkVersion.value
+
+libraryDependencies += "com.hashicorp.nomad" % "nomad-testkit" % nomadJavaSdkVersion.value % Test
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.1" % Test
 
 publishMavenStyle := true
@@ -32,15 +37,16 @@ pomExtra :=
   </developers>
 
 releaseCrossBuild := true
+releaseVersion := (_ => nomadJavaSdkVersion.value)
 releaseProcess := {
   import ReleaseTransformations._
   Seq[ReleaseStep](
-    inquireVersions,
-    setReleaseVersion,
     checkSnapshotDependencies,
+    inquireVersions,
     runClean,
     ReleaseStep(action = Command.process("scalastyle", _)),
     runTest,
+    setReleaseVersion,
     commitReleaseVersion,
     tagRelease,
     ReleaseStep(action = Command.process("publishSigned", _), enableCrossBuild = true),
