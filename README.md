@@ -1,7 +1,5 @@
-Nomad Scala SDK [![Build Status](https://travis-ci.org/hashicorp/nomad-scala-sdk.svg?branch=master)](https://travis-ci.org/hashicorp/nomad-scala-sdk)
+Nomad Scala SDK [![Build Status](https://travis-ci.org/hashicorp/nomad-scala-sdk.svg?branch=master)](https://travis-ci.org/hashicorp/nomad-scala-sdk)  [![Maven Central](https://img.shields.io/maven-central/v/com.hashicorp.nomad/nomad-scala-sdk.svg)](https://mvnrepository.com/artifact/com.hashicorp.nomad/nomad-scala-sdk)
 ===============
-
-<!-- TODO once published to maven: add version badge -->
 
 A Scala SDK for interacting with [HashiCorp's Nomad] through its [HTTP API].
 This is a wrapper around the [Java SDK].
