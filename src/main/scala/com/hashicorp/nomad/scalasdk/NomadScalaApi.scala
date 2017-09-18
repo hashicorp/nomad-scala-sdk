@@ -77,6 +77,10 @@ class NomadScalaApi(val apiClient: NomadApiClient) {
   def lookupClientApiByNodeId(nodeId: String): ScalaClientApi =
     new ScalaClientApi(apiClient.lookupClientApiByNodeId(nodeId))
 
+  /** Returns an API for managing deployments. */
+  def getDeploymentsApi: ScalaDeploymentsApi =
+    new ScalaDeploymentsApi(apiClient.getDeploymentsApi)
+
   /** Returns an API for querying information about evaluations. */
   def evaluations: ScalaEvaluationsApi =
     new ScalaEvaluationsApi(apiClient.getEvaluationsApi)
@@ -89,9 +93,17 @@ class NomadScalaApi(val apiClient: NomadApiClient) {
   def nodes: ScalaNodesApi =
     new ScalaNodesApi(apiClient.getNodesApi)
 
+  /** Returns an API for operating the Nomad cluster. */
+  def operatorApi: ScalaOperatorApi =
+    new ScalaOperatorApi(apiClient.getOperatorApi)
+
   /** Returns an API for listing the regions in the Nomad cluster. */
   def regions: ScalaRegionsApi =
     new ScalaRegionsApi(apiClient.getRegionsApi)
+
+  /** Returns an API for searching for items in Nomad cluster. */
+  def search: ScalaSearchApi =
+    new ScalaSearchApi(apiClient.getSearchApi)
 
   /** Returns an API for querying the status of the Nomad cluster. */
   def status: ScalaStatusApi =

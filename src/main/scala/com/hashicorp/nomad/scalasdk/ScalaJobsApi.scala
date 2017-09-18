@@ -31,10 +31,12 @@ class ScalaJobsApi(jobsApi: JobsApi) {
     * and stops all allocations that are part of it.
     *
     * @param jobId   the ID of the job to deregister
+    * @param purge   If true, the job is deregistered and purged from the system versus still being queryable and
+    *                eventually GC'ed from the system. Most callers should not specify purge.
     * @param options options controlling how the request is performed
     * @see [[https://www.nomadproject.io/docs/http/job.html#delete `DELETE /v1/job/<ID>`]]
     */
-  def deregister(jobId: String, options: Option[WriteOptions] = None): EvaluationResponse =
+  def deregister(jobId: String, purge: Boolean = false, options: Option[WriteOptions] = None): EvaluationResponse =
     jobsApi.deregister(jobId, options.orNull)
 
   /** Lists the evaluations belonging to a job in the active region.
@@ -66,6 +68,15 @@ class ScalaJobsApi(jobsApi: JobsApi) {
     */
   def info(jobId: String, options: Option[ScalaQueryOptions[Job]] = None): ServerQueryResponse[Job] =
     jobsApi.info(jobId, options.asJava)
+
+  /** Gets the latest deployment belonging to a job.
+    *
+    * @param jobId   the ID of the job
+    * @param options options controlling how the request is performed
+    * @see [[https://www.nomadproject.io/api/jobs.html#read-job-39-s-most-recent-deployment `GET /v1/job/<ID>/deployment`]]
+    */
+  def latestDeployment(jobId: String, options: Option[ScalaQueryOptions[Deployment]] = None): ServerQueryResponse[Deployment] =
+    jobsApi.latestDeployment(jobId, options.asJava)
 
   /** Lists jobs in the active region.
     *
@@ -107,7 +118,7 @@ class ScalaJobsApi(jobsApi: JobsApi) {
 
   /** Registers or updates a job in the active region.
     *
-    * @param job     detailed specification of the job to register
+    * @param job         detailed specification of the job to register
     * @param modifyIndex when specified, the registration is only performed if the job's modify index matches.
     *                    This can be used to make sure the job hasn't changed since getting a [[plan]].
     * @param options     options controlling how the request is performed
@@ -116,13 +127,61 @@ class ScalaJobsApi(jobsApi: JobsApi) {
   def register(job: Job, modifyIndex: Option[BigInteger] = None, options: Option[WriteOptions] = None): EvaluationResponse =
     jobsApi.register(job, modifyIndex.orNull, options.orNull)
 
+  /** Reverts to a prior version of a job.
+    *
+    * @param jobId        ID of the job
+    * @param version      the version to revert to
+    * @param priorVersion when set, the job is only reverted if the job's current version matches this prior version
+    * @param options      options controlling how the request is performed
+    * @see [[https://www.nomadproject.io/api/jobs.html#revert-to-older-job-version `PUT /v1/job/{ID}/revert`]]
+    */
+  def revert(jobId: String, version: BigInteger, priorVersion: Option[BigInteger] = None, options: Option[WriteOptions] = None): EvaluationResponse =
+    jobsApi.revert(jobId, version, priorVersion.orNull, options.orNull)
+
+  /**
+    * Marks a version of a job as stable or unstable.
+    *
+    * @param jobId   ID of the job
+    * @param version the job version to affect
+    * @param stable  whether the job is stable or unstable
+    * @param options options controlling how the request is performed
+    * @see [[https://www.nomadproject.io/api/jobs.html#set-job-stability `PUT /v1/job/{ID}/stable`]]
+    */
+  def stable(jobId: String, version: BigInteger, stable: Boolean, options: Option[WriteOptions] = None): EvaluationResponse =
+    jobsApi.stable(jobId, version, stable, options.orNull)
+
   /** Queries the summary of a job in the active region.
     *
-    * @param jobId ID of the job to get a summary for
+    * @param jobId   ID of the job to get a summary for
     * @param options options controlling how the request is performed
     * @see [[https://www.nomadproject.io/docs/http/job.html `GET /v1/job/{ID}/summary`]]
     */
   def summary(jobId: String, options: Option[ScalaQueryOptions[JobSummary]] = None): ServerQueryResponse[JobSummary] =
     jobsApi.summary(jobId, options.asJava)
+
+  /**
+    * Validates a job.
+    *
+    * @param job     the job to validate
+    * @param options options controlling how the request is performed
+    * @see [[https://www.nomadproject.io/api/validate.html#validate-job `PUT /v1/validate/job`]]
+    */
+  def validate(job: Job, options: Option[WriteOptions] = None): ServerResponse[JobValidateResponse] =
+    jobsApi.validate(job, options.orNull)
+
+  /**
+    * Lists the versions of a job.
+    *
+    * @param jobId   ID of the job
+    * @param diffs   when true, diffs are returned in addition the the job versions
+    * @param options options controlling how the request is performed
+    * @see [[https://www.nomadproject.io/api/jobs.html#list-job-versions `GET /v1/job/{ID}/versions`]]
+    */
+  def versions(
+      jobId: String,
+      diffs: Boolean = false,
+      options: Option[ScalaQueryOptions[JobVersionsResponseData]] = None
+  ): ServerQueryResponse[JobVersionsResponseData] =
+    jobsApi.versions(jobId, diffs, options.asJava)
 
 }

@@ -48,6 +48,7 @@ class ScalaAgentApi private[scalasdk](agentApi: AgentApi) {
 
   /** Updates the list of known servers to the given addresses, replacing all previous addresses.
     *
+    * @param addresses the server addresses
     * @see [[https://www.nomadproject.io/docs/http/agent-servers.html#put-post `PUT /v1/agent/servers`]]
     */
   def setServers(addresses: Iterable[String]): NomadResponse[Unit] =
@@ -56,6 +57,7 @@ class ScalaAgentApi private[scalasdk](agentApi: AgentApi) {
 
   /** Causes the agent to join a cluster by joining the gossip pool at one of the given addresses.
     *
+    * @param addresses the addresses to try joining
     * @see [[https://www.nomadproject.io/docs/http/agent-join.html `PUT /v1/agent/join`]]
     */
   def join(addresses: Iterable[String]): NomadResponse[Unit] =
