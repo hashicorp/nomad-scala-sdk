@@ -43,7 +43,7 @@ class ScalaQuotasApi(quotasApi: QuotasApi) {
     * @param options    options controlling how the request is performed
     * @see [[https://www.nomadproject.io/api/quotas.html#list-quota-specifications `GET /v1/quotas`]]
     */
-  def list(namePrefix: Option[String], options: Option[ScalaQueryOptions[Seq[QuotaSpec]]] = None): ServerQueryResponse[Seq[QuotaSpec]] =
+  def list(namePrefix: Option[String] = None, options: Option[ScalaQueryOptions[Seq[QuotaSpec]]] = None): ServerQueryResponse[Seq[QuotaSpec]] =
     quotasApi.list(namePrefix.orNull, options.asJava(_.asScala))
       .map(_.asScala)
 
@@ -55,7 +55,7 @@ class ScalaQuotasApi(quotasApi: QuotasApi) {
     * @param options    options controlling how the request is performed
     * @see [[https://www.nomadproject.io/api/quotas.html#list-quota-usages `GET /v1/quota-usages`]]
     */
-  def listUsage(namePrefix: Option[String], options: Option[ScalaQueryOptions[Seq[QuotaUsage]]] = None): ServerQueryResponse[Seq[QuotaUsage]] =
+  def listUsage(namePrefix: Option[String] = None, options: Option[ScalaQueryOptions[Seq[QuotaUsage]]] = None): ServerQueryResponse[Seq[QuotaUsage]] =
     quotasApi.listUsage(namePrefix.orNull, options.asJava(_.asScala))
       .map(_.asScala)
 

@@ -18,7 +18,7 @@ class ScalaSearchApi(searchApi: SearchApi) {
     * @param options options controlling how the request is performed
     * @see [[https://www.nomadproject.io/api/search.html `PUT /v1/search`]]
     */
-  def prefixSearch(prefix: String, context: String, options: Option[ScalaQueryOptions[SearchResponse]]): ServerQueryResponse[SearchResponse] =
+  def prefixSearch(prefix: String, context: String, options: Option[ScalaQueryOptions[SearchResponse]] = None): ServerQueryResponse[SearchResponse] =
     searchApi.prefixSearch(prefix, context, options.asJava)
 
 }

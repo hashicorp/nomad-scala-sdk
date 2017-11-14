@@ -30,7 +30,7 @@ class ScalaEvaluationsApi(evaluationsApi: EvaluationsApi) {
     * @see [[https://www.nomadproject.io/docs/http/evals.html `GET /v1/evaluations`]]
     */
   def list(
-      evaluationIdPrefix: Option[String],
+      evaluationIdPrefix: Option[String] = None,
       options: Option[ScalaQueryOptions[Seq[Evaluation]]] = None
   ): ServerQueryResponse[Seq[Evaluation]] =
     evaluationsApi.list(evaluationIdPrefix.orNull, options.asJava(_.asScala))

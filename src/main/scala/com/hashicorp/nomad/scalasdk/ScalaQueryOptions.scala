@@ -25,7 +25,7 @@ case class ScalaQueryOptions[A](
     waitStrategy: Option[WaitStrategy] = None,
     allowStale: Boolean = false,
     repeatedPollPredicate: Option[ServerQueryResponse[A] => Boolean] = None,
-    authToken: Option[String]) {
+    authToken: Option[String] = None) {
 
   /** Returns Java [[QueryOptions]] equivalent to these options.
     *

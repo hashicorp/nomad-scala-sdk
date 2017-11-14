@@ -43,7 +43,7 @@ class ScalaNamespacesApi(namespacesApi: NamespacesApi) {
     * @param options    options controlling how the request is performed
     * @see [[https://www.nomadproject.io/docs/http/namespaces.html#list-namespaces `GET /v1/namespaces`]]
     */
-  def list(namePrefix: Option[String], options: Option[ScalaQueryOptions[Seq[Namespace]]] = None): ServerQueryResponse[Seq[Namespace]] =
+  def list(namePrefix: Option[String] = None, options: Option[ScalaQueryOptions[Seq[Namespace]]] = None): ServerQueryResponse[Seq[Namespace]] =
     namespacesApi.list(namePrefix.orNull, options.asJava(_.asScala))
       .map(_.asScala)
 

@@ -61,7 +61,10 @@ class ScalaAclTokensApi(aclTokensApi: AclTokensApi) {
     * @param options          options controlling how the request is performed
     * @see [[https://www.nomadproject.io/api/acl-tokens.html#list-tokens `GET /v1/acl/tokens`]]
     */
-  def list(accessorIdPrefix: Option[String], options: Option[ScalaQueryOptions[Seq[AclTokenListStub]]] = None): ServerQueryResponse[Seq[AclTokenListStub]] =
+  def list(
+      accessorIdPrefix: Option[String] = None,
+      options: Option[ScalaQueryOptions[Seq[AclTokenListStub]]] = None
+  ): ServerQueryResponse[Seq[AclTokenListStub]] =
     aclTokensApi.list(accessorIdPrefix.orNull, options.asJava(_.asScala))
       .map(_.asScala)
 

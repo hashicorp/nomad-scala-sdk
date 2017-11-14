@@ -32,7 +32,7 @@ class ScalaDeploymentsApi(deploymentsApi: DeploymentsApi) {
     * @see [[https://www.nomadproject.io/api/deployments.html#read-deployment `GET /v1/deployment/{ID}`]]
     */
   @throws[NomadException]
-  def info(deploymentId: String, options: Option[ScalaQueryOptions[Deployment]]): ServerQueryResponse[Deployment] =
+  def info(deploymentId: String, options: Option[ScalaQueryOptions[Deployment]] = None): ServerQueryResponse[Deployment] =
   deploymentsApi.info(deploymentId, options.asJava)
 
   /** Lists the allocations belonging to a deployment in the active region.
@@ -51,7 +51,7 @@ class ScalaDeploymentsApi(deploymentsApi: DeploymentsApi) {
     * @param options      options controlling how the request is performed
     * @see [[https://www.nomadproject.io/api/deployments.html#fail-deployment `PUT /v1/deployment/fail/<ID>`]]
     */
-  def fail(deploymentId: String, options: Option[WriteOptions]): ServerResponse[DeploymentUpdateResponse] =
+  def fail(deploymentId: String, options: Option[WriteOptions] = None): ServerResponse[DeploymentUpdateResponse] =
     deploymentsApi.fail(deploymentId, options.orNull)
 
   /** Pauses or un-pauses a deployment in the active region.
@@ -61,7 +61,7 @@ class ScalaDeploymentsApi(deploymentsApi: DeploymentsApi) {
     * @param options      options controlling how the request is performed
     * @see [[https://www.nomadproject.io/api/deployments.html#pause-deployment `PUT /v1/deployment/pause/<ID>`]]
     */
-  def pause(deploymentId: String, pause: Boolean, options: Option[WriteOptions]): ServerResponse[DeploymentUpdateResponse] =
+  def pause(deploymentId: String, pause: Boolean, options: Option[WriteOptions] = None): ServerResponse[DeploymentUpdateResponse] =
     deploymentsApi.pause(deploymentId: String, pause, options.orNull)
 
   /** Promotes the canaries in the provided groups of a deployment in the active region.
