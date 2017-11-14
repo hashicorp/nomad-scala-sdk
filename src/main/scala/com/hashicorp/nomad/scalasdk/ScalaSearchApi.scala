@@ -14,7 +14,7 @@ class ScalaSearchApi(searchApi: SearchApi) {
   /** Returns a list of matches for a particular context and prefix.
     *
     * @param prefix  items with this prefix are returned
-    * @param context one of the following: allocs, deployment, evals, jobs, nodes, all
+    * @param context one of the following: allocs, deployment, evals, jobs, nodes, namespaces, quotas, all
     * @param options options controlling how the request is performed
     * @see [[https://www.nomadproject.io/api/search.html `PUT /v1/search`]]
     */

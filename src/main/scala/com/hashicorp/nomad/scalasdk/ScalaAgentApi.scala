@@ -1,10 +1,8 @@
 package com.hashicorp.nomad.scalasdk
 
 import scala.collection.JavaConverters._
-import scala.collection.Map
-import scala.concurrent.Future
 
-import com.hashicorp.nomad.apimodel.{ AgentSelf, ServerMembers }
+import com.hashicorp.nomad.apimodel.{ AgentHealthResponse, AgentSelf, ServerMembers }
 import com.hashicorp.nomad.javasdk.{ AgentApi, NomadResponse }
 
 /** Scala API for Nomad agent and cluster management,
@@ -14,6 +12,13 @@ import com.hashicorp.nomad.javasdk.{ AgentApi, NomadResponse }
   * @param agentApi the underlying Java SDK AgentApi
   */
 class ScalaAgentApi private[scalasdk](agentApi: AgentApi) {
+
+  /** Performs a basic healthcheck.
+    *
+    * @see [[https://www.nomadproject.io/api/agent.html#health `GET /v1/agent/health`]]
+    */
+  def health(): NomadResponse[AgentHealthResponse] =
+    agentApi.health()
 
   /** Queries for information about the agent we are connected to.
     *

@@ -106,26 +106,30 @@ class ScalaJobsApi(jobsApi: JobsApi) {
     * Can be used together with the modifyIndex parameter of [[register]]
     * to inspect what will happen before registering a job.
     *
-    * @param job     detailed specification of the job to plan for
-    * @param diff    indicates whether a diff between the current and submitted versions of the job
-    *                should be included in the response.
-    * @param options options controlling how the request is performed
+    * @param job            detailed specification of the job to plan for
+    * @param diff           indicates whether a diff between the current and submitted versions of the job
+    *                       should be included in the response.
+    * @param policyOverride If set, any soft mandatory Sentinel policies will be overriden.
+    *                       This allows a job to be registered when it would be denied by policy.
+    * @param options        options controlling how the request is performed
     * @see [[https://www.nomadproject.io/intro/getting-started/jobs.html#modifying-a-job Modifying a Job]]
     * @see [[https://www.nomadproject.io/docs/http/job.html `PUT /v1/job/{ID}/periodic/force`]]
     */
-  def plan(job: Job, diff: Boolean, options: Option[WriteOptions] = None): ServerResponse[JobPlanResponse] =
-    jobsApi.plan(job, diff, options.orNull)
+  def plan(job: Job, diff: Boolean, policyOverride: Boolean = false, options: Option[WriteOptions] = None): ServerResponse[JobPlanResponse] =
+    jobsApi.plan(job, diff, policyOverride, options.orNull)
 
   /** Registers or updates a job in the active region.
     *
-    * @param job         detailed specification of the job to register
-    * @param modifyIndex when specified, the registration is only performed if the job's modify index matches.
-    *                    This can be used to make sure the job hasn't changed since getting a [[plan]].
-    * @param options     options controlling how the request is performed
+    * @param job            detailed specification of the job to register
+    * @param modifyIndex    when specified, the registration is only performed if the job's modify index matches.
+    *                       This can be used to make sure the job hasn't changed since getting a [[plan]].
+    * @param policyOverride If true, any soft mandatory Sentinel policies will be overriden.
+    *                       This allows a job to be registered when it would be denied by policy.
+    * @param options        options controlling how the request is performed
     * @see [[https://www.nomadproject.io/docs/http/jobs.html#put-post `PUT /v1/jobs`]]
     */
-  def register(job: Job, modifyIndex: Option[BigInteger] = None, options: Option[WriteOptions] = None): EvaluationResponse =
-    jobsApi.register(job, modifyIndex.orNull, options.orNull)
+  def register(job: Job, modifyIndex: Option[BigInteger] = None, policyOverride: Boolean = false, options: Option[WriteOptions] = None): EvaluationResponse =
+    jobsApi.register(job, modifyIndex.orNull, policyOverride, options.orNull)
 
   /** Reverts to a prior version of a job.
     *

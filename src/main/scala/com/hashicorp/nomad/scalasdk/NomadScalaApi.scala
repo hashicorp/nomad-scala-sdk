@@ -44,9 +44,35 @@ class NomadScalaApi(val apiClient: NomadApiClient) {
   def config: NomadApiConfiguration =
     apiClient.getConfig
 
+  /** Sets the active ACL token secret ID that this client passes to the server.
+    *
+    * @param authToken the secret ID to use
+    */
+  def setAuthToken(authToken: String): this.type = {
+    apiClient.setAuthToken(authToken)
+    this
+  }
+
+  /** Sets the active namespace of this API client.
+    *
+    * @param namespace the namespace to use
+    */
+  def setNamespace(namespace: String): this.type = {
+    apiClient.setNamespace(namespace)
+    this
+  }
+
   /** Closes the underlying NomadApiClient's HTTP client. */
   def close(): Unit =
     apiClient.close()
+
+  /** Returns an API for managing ACL policies. */
+  def aclPolicies: ScalaAclPoliciesApi =
+    new ScalaAclPoliciesApi(apiClient.getAclPoliciesApi)
+
+  /** Returns an API for managing ACL tokens. */
+  def aclTokens: ScalaAclTokensApi =
+    new ScalaAclTokensApi(apiClient.getAclTokensApi)
 
   /** Returns an API for agent a cluster management. */
   def agent: ScalaAgentApi =
@@ -89,6 +115,10 @@ class NomadScalaApi(val apiClient: NomadApiClient) {
   def jobs: ScalaJobsApi =
     new ScalaJobsApi(apiClient.getJobsApi)
 
+  /** Returns an API for managing namespaces. */
+  def namespaces: ScalaNamespacesApi =
+    new ScalaNamespacesApi(apiClient.getNamespacesApi)
+
   /** Returns an API for querying information about the client nodes in the Nomad cluster. */
   def nodes: ScalaNodesApi =
     new ScalaNodesApi(apiClient.getNodesApi)
@@ -97,6 +127,10 @@ class NomadScalaApi(val apiClient: NomadApiClient) {
   def operatorApi: ScalaOperatorApi =
     new ScalaOperatorApi(apiClient.getOperatorApi)
 
+  /** Returns an API for managing quotas. */
+  def quotas: ScalaQuotasApi =
+    new ScalaQuotasApi(apiClient.getQuotasApi)
+
   /** Returns an API for listing the regions in the Nomad cluster. */
   def regions: ScalaRegionsApi =
     new ScalaRegionsApi(apiClient.getRegionsApi)
@@ -104,6 +138,10 @@ class NomadScalaApi(val apiClient: NomadApiClient) {
   /** Returns an API for searching for items in Nomad cluster. */
   def search: ScalaSearchApi =
     new ScalaSearchApi(apiClient.getSearchApi)
+
+  /** Returns an API for managing sentinel policies. */
+  def sentinelPolicies: ScalaSentinelPoliciesApi =
+    new ScalaSentinelPoliciesApi(apiClient.getSentinelPoliciesApi)
 
   /** Returns an API for querying the status of the Nomad cluster. */
   def status: ScalaStatusApi =

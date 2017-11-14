@@ -26,7 +26,8 @@ class ScalaOperatorApi(operatorApi: OperatorApi) {
     * @param options options controlling how the request is performed
     * @see [[https://www.nomadproject.io/api/operator.html#remove-raft-peer `DELETE /v1/operator/raft/peer`]]
     */
-  def raftRemovePeerByAddress(address: String, options: Option[WriteOptions] = None): NomadResponse[Void] =
+  def raftRemovePeerByAddress(address: String, options: Option[WriteOptions] = None): NomadResponse[Unit] =
     operatorApi.raftRemovePeerByAddress(address, options.orNull)
+      .map((_: Void) => ())
 
 }
