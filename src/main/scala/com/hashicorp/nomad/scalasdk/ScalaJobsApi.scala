@@ -37,7 +37,7 @@ class ScalaJobsApi(jobsApi: JobsApi) {
     * @see [[https://www.nomadproject.io/docs/http/job.html#delete `DELETE /v1/job/<ID>`]]
     */
   def deregister(jobId: String, purge: Boolean = false, options: Option[WriteOptions] = None): EvaluationResponse =
-    jobsApi.deregister(jobId, options.orNull)
+    jobsApi.deregister(jobId, purge, options.orNull)
 
   /** Lists the evaluations belonging to a job in the active region.
     *
