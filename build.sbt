@@ -27,6 +27,9 @@ libraryDependencies += "com.hashicorp.nomad" % "nomad-sdk" % nomadJavaSdkVersion
 libraryDependencies += "com.hashicorp.nomad" % "nomad-testkit" % nomadJavaSdkVersion.value % Test
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.4" % Test
 
+useGpg := true
+usePgpKeyHex("7D65AD3D5B24A0EA035BDA2BDC6367189CC3BC7C")
+
 publishMavenStyle := true
 pomExtra :=
   <developers>
