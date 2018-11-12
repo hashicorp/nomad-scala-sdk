@@ -27,6 +27,7 @@ before_script:
       export PATH="$PATH:$GOPATH/bin"
       go get -u github.com/hashicorp/nomad
       cd "$GOPATH/src/github.com/hashicorp/nomad"
+      git checkout tags/v0.8.6
       make bootstrap generate
       cd -
 
