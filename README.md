@@ -8,7 +8,7 @@ This is a wrapper around the [Java SDK].
 [HTTP API]: https://www.nomadproject.io/docs/http/
 [Java SDK]: https://github.com/hashicorp/nomad-java-sdk
 
-This SDK requires at least a Java 7 runtime.
+This SDK requires at least a Java 8 runtime.
 
 
 Using
