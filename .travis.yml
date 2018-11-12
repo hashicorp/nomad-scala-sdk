@@ -28,7 +28,7 @@ before_script:
       go get -u github.com/hashicorp/nomad
       cd "$GOPATH/src/github.com/hashicorp/nomad"
       git checkout tags/v0.8.6
-      make bootstrap generate
+      make bootstrap
       cd -
 
       mkdir -p cache/bin
