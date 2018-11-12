@@ -1,24 +1,15 @@
 language: scala
 
 jdk:
-  - oraclejdk7
   - oraclejdk8
 
 scala:
    - 2.11.12
-   - 2.12.4
+   - 2.12.7
    - 2.13.0-M2
 
 matrix:
   exclude:
-  # We build Scala 2.11 on Java 7, so let's not bother with Java 8
-  - jdk: oraclejdk8
-    scala: 2.11.12
-  # Scala 2.12+ requires Java 8
-  - jdk: oraclejdk7
-    scala: 2.12.4
-  - jdk: oraclejdk7
-    scala: 2.13.0-M2
 
 before_install:
   - |
@@ -32,11 +23,12 @@ before_script:
     set -euo pipefail
     if [[ ! -f cache/bin/nomad ]]; then
       export GOPATH="$PWD/gopath"
-      eval "$(curl -sL https://raw.githubusercontent.com/travis-ci/gimme/master/gimme | GIMME_GO_VERSION=1.10.2 bash)"
+      eval "$(curl -sL https://raw.githubusercontent.com/travis-ci/gimme/master/gimme | GIMME_GO_VERSION=1.10 bash)"
       export PATH="$PATH:$GOPATH/bin"
       go get -u github.com/hashicorp/nomad
       cd "$GOPATH/src/github.com/hashicorp/nomad"
-      make bootstrap generate
+      git checkout tags/v0.8.6
+      make bootstrap
       cd -
 
       mkdir -p cache/bin
