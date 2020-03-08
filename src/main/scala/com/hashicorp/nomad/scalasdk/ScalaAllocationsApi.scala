@@ -1,8 +1,7 @@
 package com.hashicorp.nomad.scalasdk
 
 import scala.collection.JavaConverters._
-
-import com.hashicorp.nomad.apimodel.{Allocation, AllocationListStub}
+import com.hashicorp.nomad.apimodel.{AllocStopResponse, Allocation, AllocationListStub}
 import com.hashicorp.nomad.javasdk._
 
 /** API for querying for information about allocations,
@@ -35,4 +34,23 @@ class ScalaAllocationsApi private[scalasdk](allocationsApi: AllocationsApi) {
   ): ServerQueryResponse[Seq[AllocationListStub]] =
     allocationsApi.list(allocationIdPrefix.orNull, options.asJava((_: java.util.List[AllocationListStub]).asScala))
       .map(_.asScala)
+
+  /** Stops and reschedules an allocation.
+    *
+    * @param id the allocation ID to stop
+    * @return allocation stop response, including the id of the follow-up evaluation for any rescheduled alloc.
+    * @see [[https://nomadproject.io/api-docs/allocations/#stop-allocation `PUT /v1/allocation/{ID}/stop`]]
+    */
+  def stop(id: String): ServerResponse[AllocStopResponse] = allocationsApi.stop(id)
+
+  /** Sends a signal to an allocation or task.
+    *
+    * @param id the allocation ID to stop
+    * @param signal the signal to send
+    * @param task the name of the task, required if the task group has more than one task
+    * @see [[https://nomadproject.io/api-docs/allocations/#signal-allocation `PUT /v1/allocation/{ID}/signal`]]
+    */
+  def signal(id: String, signal: String, task: Option[String] = None): Unit =
+    allocationsApi.signal(id, signal, task.orNull)
+
 }

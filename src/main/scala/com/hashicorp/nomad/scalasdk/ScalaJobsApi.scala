@@ -3,7 +3,6 @@ package com.hashicorp.nomad.scalasdk
 import java.math.BigInteger
 
 import scala.collection.JavaConverters._
-
 import com.hashicorp.nomad.apimodel._
 import com.hashicorp.nomad.javasdk._
 
@@ -27,6 +26,17 @@ class ScalaJobsApi(jobsApi: JobsApi) {
     jobsApi.allocations(jobId, options.asJava(_.asScala))
       .map(_.asScala)
 
+  /**
+    * Lists the deployments belonging to a job in the active region.
+    *
+    * @param jobId   the ID of the job to list deployments for
+    * @param options options controlling how the request is performed
+    * @see <a href="https://www.nomadproject.io/docs/http/job.html">{@code GET /v1/job/<ID>/deployments}</a>
+    */
+  def deployments(jobId: String,
+                  options: Option[ScalaQueryOptions[Seq[Deployment]]] = None): ServerQueryResponse[Seq[Deployment]] =
+    jobsApi.deployments(jobId, options.asJava(_.asScala)).map(_.asScala)
+
   /** Deregisters a job in the active region,
     * and stops all allocations that are part of it.
     *
@@ -38,6 +48,18 @@ class ScalaJobsApi(jobsApi: JobsApi) {
     */
   def deregister(jobId: String, purge: Boolean = false, options: Option[WriteOptions] = None): EvaluationResponse =
     jobsApi.deregister(jobId, purge, options.orNull)
+
+  /** Dispatches a new instance of a parameterized job in the active region.
+    *
+    * @param jobId   id of the parameterized job to instantiate
+    * @param meta    metadata for the instantiated job
+    * @param payload payload for the instantiated job
+    * @param options options controlling how the request is performed
+    * @see <a href="https://www.nomadproject.io/api/jobs.html#dispatch-job">{@code PUT /v1/job/<ID>/dispatch}</a>
+    */
+  def dispatch(jobId: String, meta: Option[Map[String,String]] = None,
+               payload: Option[Array[Byte]] = None, options: Option[WriteOptions] = None): ServerResponse[JobDispatchResponse] =
+    jobsApi.dispatch(jobId, meta.map(_.asJava).orNull, payload.orNull, options.orNull)
 
   /** Lists the evaluations belonging to a job in the active region.
     *
