@@ -111,7 +111,7 @@ class ScalaClientApi private[scalasdk](clientApi: ClientApi) {
     */
   def ls(allocationId: String, path: String): NomadResponse[Seq[AllocFileInfo]] =
     clientApi.ls(allocationId, path)
-      .map(_.asScala)
+      .map(_.asScala.toSeq)
 
   /** Stat a file in an allocation directory.
     *

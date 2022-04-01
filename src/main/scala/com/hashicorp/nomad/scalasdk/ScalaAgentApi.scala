@@ -49,7 +49,7 @@ class ScalaAgentApi private[scalasdk](agentApi: AgentApi) {
     */
   def servers(): NomadResponse[Seq[String]] =
     agentApi.servers()
-      .map(_.asScala: Seq[String])
+      .map(_.asScala.toSeq: Seq[String])
 
   /** Updates the list of known servers to the given addresses, replacing all previous addresses.
     *

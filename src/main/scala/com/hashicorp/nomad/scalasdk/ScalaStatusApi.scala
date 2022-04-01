@@ -29,6 +29,6 @@ class ScalaStatusApi(statusApi: StatusApi) {
     */
   def peers(region: Option[String] = None): NomadResponse[Seq[String]] =
     statusApi.peers(region.orNull)
-      .map(_.asScala)
+      .map(_.asScala.toSeq)
 
 }

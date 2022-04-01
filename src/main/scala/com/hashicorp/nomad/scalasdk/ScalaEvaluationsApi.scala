@@ -33,8 +33,8 @@ class ScalaEvaluationsApi(evaluationsApi: EvaluationsApi) {
       evaluationIdPrefix: Option[String] = None,
       options: Option[ScalaQueryOptions[Seq[Evaluation]]] = None
   ): ServerQueryResponse[Seq[Evaluation]] =
-    evaluationsApi.list(evaluationIdPrefix.orNull, options.asJava(_.asScala))
-      .map(_.asScala)
+    evaluationsApi.list(evaluationIdPrefix.orNull, options.asJava(_.asScala.toSeq))
+      .map(_.asScala.toSeq)
 
   /** Lists allocations created or modified an evaluation in the active region.
     *
@@ -46,8 +46,8 @@ class ScalaEvaluationsApi(evaluationsApi: EvaluationsApi) {
       evaluationId: String,
       options: Option[ScalaQueryOptions[Seq[AllocationListStub]]] = None
   ): ServerQueryResponse[Seq[AllocationListStub]] =
-    evaluationsApi.allocations(evaluationId, options.asJava(_.asScala))
-      .map(_.asScala)
+    evaluationsApi.allocations(evaluationId, options.asJava(_.asScala.toSeq))
+      .map(_.asScala.toSeq)
 
   /** Poll the server until an evaluation has completed.
     *

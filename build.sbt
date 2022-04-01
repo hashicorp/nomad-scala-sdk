@@ -14,7 +14,7 @@ scmInfo := homepage.value.map { repo =>
 }
 licenses := Seq("Mozilla Public License, version 2.0" -> url("https://www.mozilla.org/en-US/MPL/2.0/"))
 
-crossScalaVersions := Seq("2.11.12", "2.12.4", "2.13.8")
+crossScalaVersions := Seq( "2.11.12" , "2.12.15" , "2.13.8")
 scalaVersion := crossScalaVersions.value.head
 
 resolvers += Resolver.mavenLocal
@@ -25,7 +25,7 @@ nomadJavaSdkVersion := "0.9.7.0"
 libraryDependencies += "com.hashicorp.nomad" % "nomad-sdk" % nomadJavaSdkVersion.value
 
 libraryDependencies += "com.hashicorp.nomad" % "nomad-testkit" % nomadJavaSdkVersion.value % Test
-libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.4" % Test
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.11" % Test
 
 usePgpKeyHex("7D65AD3D5B24A0EA035BDA2BDC6367189CC3BC7C")
 

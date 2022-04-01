@@ -1,14 +1,13 @@
 package com.hashicorp.nomad.scalasdk
 
 import java.io.{PrintWriter, StringWriter}
-
 import com.hashicorp.nomad.apimodel._
 import com.hashicorp.nomad.javasdk.WaitStrategy._
 import com.hashicorp.nomad.testutils.NomadAgentConfiguration.Builder
 import com.hashicorp.nomad.testutils.NomadAgentProcess
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 
-class NomadScalaApiTest extends FunSuite {
+class NomadScalaApiTest extends AnyFunSuite {
 
   def withClientServer[A](use: NomadAgentProcess => A): A = {
     val serverLog = new StringWriter

@@ -23,8 +23,8 @@ class ScalaJobsApi(jobsApi: JobsApi) {
     * @see [[https://www.nomadproject.io/docs/http/job.html `GET /v1/job/<ID>/allocations`]]
     */
   def allocations(jobId: String, options: Option[ScalaQueryOptions[Seq[AllocationListStub]]] = None): ServerQueryResponse[Seq[AllocationListStub]] =
-    jobsApi.allocations(jobId, options.asJava(_.asScala))
-      .map(_.asScala)
+    jobsApi.allocations(jobId, options.asJava(_.asScala.toSeq))
+      .map(_.asScala.toSeq)
 
   /**
     * Lists the deployments belonging to a job in the active region.
@@ -35,7 +35,7 @@ class ScalaJobsApi(jobsApi: JobsApi) {
     */
   def deployments(jobId: String,
                   options: Option[ScalaQueryOptions[Seq[Deployment]]] = None): ServerQueryResponse[Seq[Deployment]] =
-    jobsApi.deployments(jobId, options.asJava(_.asScala)).map(_.asScala)
+    jobsApi.deployments(jobId, options.asJava(_.asScala.toSeq)).map(_.asScala.toSeq)
 
   /** Deregisters a job in the active region,
     * and stops all allocations that are part of it.
@@ -68,8 +68,8 @@ class ScalaJobsApi(jobsApi: JobsApi) {
     * @see [[https://www.nomadproject.io/docs/http/job.html `GET /v1/job/<ID>/evaluations`]]
     */
   def evaluations(jobId: String, options: Option[ScalaQueryOptions[Seq[Evaluation]]] = None): ServerQueryResponse[Seq[Evaluation]] =
-    jobsApi.evaluations(jobId, options.asJava(_.asScala))
-      .map(_.asScala)
+    jobsApi.evaluations(jobId, options.asJava(_.asScala.toSeq))
+      .map(_.asScala.toSeq)
 
   /** Creates a new evaluation for a job in the active region.
     *
@@ -108,8 +108,8 @@ class ScalaJobsApi(jobsApi: JobsApi) {
     * @see [[https://www.nomadproject.io/docs/http/jobs.html `GET /v1/jobs`]]
     */
   def list(jobIdPrefix: Option[String] = None, options: Option[ScalaQueryOptions[Seq[JobListStub]]] = None): ServerQueryResponse[Seq[JobListStub]] =
-    jobsApi.list(jobIdPrefix.orNull, options.asJava(_.asScala))
-      .map(_.asScala)
+    jobsApi.list(jobIdPrefix.orNull, options.asJava(_.asScala.toSeq))
+      .map(_.asScala.toSeq)
 
   /** Forces a new instance of a periodic job in the active region.
     * <p>

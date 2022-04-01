@@ -65,8 +65,8 @@ class ScalaAclTokensApi(aclTokensApi: AclTokensApi) {
       accessorIdPrefix: Option[String] = None,
       options: Option[ScalaQueryOptions[Seq[AclTokenListStub]]] = None
   ): ServerQueryResponse[Seq[AclTokenListStub]] =
-    aclTokensApi.list(accessorIdPrefix.orNull, options.asJava(_.asScala))
-      .map(_.asScala)
+    aclTokensApi.list(accessorIdPrefix.orNull, options.asJava(_.asScala.toSeq))
+      .map(_.asScala.toSeq)
 
   /**
     * Retrieves the ACL token currently being used.
