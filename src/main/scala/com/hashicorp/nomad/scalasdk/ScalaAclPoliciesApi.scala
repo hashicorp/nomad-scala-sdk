@@ -44,8 +44,8 @@ class ScalaAclPoliciesApi(aclPoliciesApi: AclPoliciesApi) {
     * @see [[https://www.nomadproject.io/docs/http/acl-policies.html#list-policies `GET /v1/acl/policies`]]
     */
   def list(namePrefix: Option[String] = None, options: Option[ScalaQueryOptions[Seq[AclPolicyListStub]]] = None): ServerQueryResponse[Seq[AclPolicyListStub]] =
-    aclPoliciesApi.list(namePrefix.orNull, options.asJava(_.asScala))
-      .map(_.asScala)
+    aclPoliciesApi.list(namePrefix.orNull, options.asJava(_.asScala.toSeq))
+      .map(_.asScala.toSeq)
 
   /**
     * Creates or updates an ACL policy.

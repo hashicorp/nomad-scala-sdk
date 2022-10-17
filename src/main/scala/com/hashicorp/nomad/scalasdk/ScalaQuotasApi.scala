@@ -44,8 +44,8 @@ class ScalaQuotasApi(quotasApi: QuotasApi) {
     * @see [[https://www.nomadproject.io/api/quotas.html#list-quota-specifications `GET /v1/quotas`]]
     */
   def list(namePrefix: Option[String] = None, options: Option[ScalaQueryOptions[Seq[QuotaSpec]]] = None): ServerQueryResponse[Seq[QuotaSpec]] =
-    quotasApi.list(namePrefix.orNull, options.asJava(_.asScala))
-      .map(_.asScala)
+    quotasApi.list(namePrefix.orNull, options.asJava(_.asScala.toSeq))
+      .map(_.asScala.toSeq)
 
   /**
     * Lists quota usages.
@@ -56,8 +56,8 @@ class ScalaQuotasApi(quotasApi: QuotasApi) {
     * @see [[https://www.nomadproject.io/api/quotas.html#list-quota-usages `GET /v1/quota-usages`]]
     */
   def listUsage(namePrefix: Option[String] = None, options: Option[ScalaQueryOptions[Seq[QuotaUsage]]] = None): ServerQueryResponse[Seq[QuotaUsage]] =
-    quotasApi.listUsage(namePrefix.orNull, options.asJava(_.asScala))
-      .map(_.asScala)
+    quotasApi.listUsage(namePrefix.orNull, options.asJava(_.asScala.toSeq))
+      .map(_.asScala.toSeq)
 
   /**
     * Registers or updates a quota.

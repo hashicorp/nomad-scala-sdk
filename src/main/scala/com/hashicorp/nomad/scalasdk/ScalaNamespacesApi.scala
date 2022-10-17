@@ -44,8 +44,8 @@ class ScalaNamespacesApi(namespacesApi: NamespacesApi) {
     * @see [[https://www.nomadproject.io/docs/http/namespaces.html#list-namespaces `GET /v1/namespaces`]]
     */
   def list(namePrefix: Option[String] = None, options: Option[ScalaQueryOptions[Seq[Namespace]]] = None): ServerQueryResponse[Seq[Namespace]] =
-    namespacesApi.list(namePrefix.orNull, options.asJava(_.asScala))
-      .map(_.asScala)
+    namespacesApi.list(namePrefix.orNull, options.asJava(_.asScala.toSeq))
+      .map(_.asScala.toSeq)
 
   /**
     * Registers or updates a namespace.

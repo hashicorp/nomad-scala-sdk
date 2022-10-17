@@ -20,8 +20,8 @@ class ScalaNodesApi(nodesApi: NodesApi) {
     * @see [[https://www.nomadproject.io/docs/http/node.html `GET /v1/node/{ID}/allocations`]]
     */
   def allocations(nodeId: String, options: Option[ScalaQueryOptions[Seq[AllocationListStub]]] = None): ServerQueryResponse[Seq[AllocationListStub]] =
-    nodesApi.allocations(nodeId, options.asJava(_.asScala))
-      .map(_.asScala)
+    nodesApi.allocations(nodeId, options.asJava(_.asScala.toSeq))
+      .map(_.asScala.toSeq)
 
   /** Creates a new evaluation for a node.
     *
@@ -52,8 +52,8 @@ class ScalaNodesApi(nodesApi: NodesApi) {
   def list(
       nodeIdPrefix: Option[String] = None,
       options: Option[ScalaQueryOptions[Seq[NodeListStub]]] = None): ServerQueryResponse[Seq[NodeListStub]] =
-    nodesApi.list(nodeIdPrefix.orNull, options.asJava(_.asScala))
-      .map(_.asScala)
+    nodesApi.list(nodeIdPrefix.orNull, options.asJava(_.asScala.toSeq))
+      .map(_.asScala.toSeq)
 
   /** Toggles drain mode on or off on a node in the active region.
     * <p>

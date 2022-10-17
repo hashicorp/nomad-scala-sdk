@@ -32,8 +32,8 @@ class ScalaAllocationsApi private[scalasdk](allocationsApi: AllocationsApi) {
       allocationIdPrefix: Option[String] = None,
       options: Option[ScalaQueryOptions[Seq[AllocationListStub]]] = None
   ): ServerQueryResponse[Seq[AllocationListStub]] =
-    allocationsApi.list(allocationIdPrefix.orNull, options.asJava((_: java.util.List[AllocationListStub]).asScala))
-      .map(_.asScala)
+    allocationsApi.list(allocationIdPrefix.orNull, options.asJava((_: java.util.List[AllocationListStub]).asScala.toSeq))
+      .map(_.asScala.toSeq)
 
   /** Stops and reschedules an allocation.
     *

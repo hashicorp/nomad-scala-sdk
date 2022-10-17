@@ -20,6 +20,6 @@ class ScalaRegionsApi(regionsApi: RegionsApi) {
     */
   def list(): NomadResponse[Seq[String]] =
     regionsApi.list()
-      .map(_.asScala)
+      .map(_.asScala.toSeq)
 
 }

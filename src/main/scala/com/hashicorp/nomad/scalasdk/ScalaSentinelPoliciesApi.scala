@@ -46,8 +46,8 @@ class ScalaSentinelPoliciesApi(sentinelPoliciesApi: SentinelPoliciesApi) {
       namePrefix: Option[String] = None,
       options: Option[ScalaQueryOptions[Seq[SentinelPolicyListStub]]] = None
   ): ServerResponse[Seq[SentinelPolicyListStub]] =
-    sentinelPoliciesApi.list(namePrefix.orNull, options.asJava(_.asScala))
-      .map(_.asScala)
+    sentinelPoliciesApi.list(namePrefix.orNull, options.asJava(_.asScala.toSeq))
+      .map(_.asScala.toSeq)
 
   /**
     * Creates or updates an sentinel policy.

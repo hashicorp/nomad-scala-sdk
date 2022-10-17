@@ -21,8 +21,8 @@ class ScalaDeploymentsApi(deploymentsApi: DeploymentsApi) {
     * @see [[https://www.nomadproject.io/api/deployments.html#list-deployments `GET /v1/deployments`]]
     */
   def list(deploymentIdPrefix: Option[String] = None, options: Option[ScalaQueryOptions[Seq[Deployment]]] = None): ServerQueryResponse[Seq[Deployment]] =
-    deploymentsApi.list(deploymentIdPrefix.orNull, options.asJava(_.asScala))
-      .map(_.asScala)
+    deploymentsApi.list(deploymentIdPrefix.orNull, options.asJava(_.asScala.toSeq))
+      .map(_.asScala.toSeq)
 
 
   /** Queries a deployment in the active region.
@@ -42,8 +42,8 @@ class ScalaDeploymentsApi(deploymentsApi: DeploymentsApi) {
     * @see [[https://www.nomadproject.io/api/deployments.html#list-allocations-for-deployment `GET /v1/deployment/<ID>/allocations`]]
     */
   def allocations(deploymentId: String, options: Option[ScalaQueryOptions[Seq[AllocationListStub]]]): ServerQueryResponse[Seq[AllocationListStub]] =
-    deploymentsApi.allocations(deploymentId, options.asJava(_.asScala))
-      .map(_.asScala)
+    deploymentsApi.allocations(deploymentId, options.asJava(_.asScala.toSeq))
+      .map(_.asScala.toSeq)
 
   /** Fails a deployment in the active region.
     *
